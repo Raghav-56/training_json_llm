@@ -62,14 +62,14 @@ def process_directory(root_dir):
                 "conversation": {
                     "0": {
                         "from": "human",
-                        "value": "<image>What is the emotion of the person in the video?",
+                        "value": "<video>What is the emotion of the person in the video?",
                     },
                     "1": {
                         "from": "gpt",
                         "value": f"The emotion expressed by the person in this video is: {emotion}",
                     },
                 },
-                "images": {"0": str(video_file)},  # Store the video file path directly
+                "videos": {"0": str(video_file)},  # Store the video file path directly
                 "emotion": emotion,
             }
 
@@ -117,7 +117,7 @@ def create_vision_lm_format(processed_data):
 
     for video_id, video_data in processed_data.items():
         conversation = video_data["conversation"]
-        image_paths = list(video_data["images"].values())
+        video_paths = list(video_data["videos"].values())
 
         entry = {
             "messages": [
@@ -127,7 +127,7 @@ def create_vision_lm_format(processed_data):
                 },
                 {"content": conversation["1"]["value"], "role": "assistant"},
             ],
-            "images": image_paths,
+            "videos": video_paths,
             "emotion": video_data["emotion"],
             "video_id": video_id,
         }
@@ -152,7 +152,7 @@ def create_sharegpt_format(processed_data):
 
     for video_id, video_data in processed_data.items():
         conversation = video_data["conversation"]
-        image_paths = list(video_data["images"].values())
+        video_paths = list(video_data["videos"].values())
 
         entry = {
             "conversations": [
@@ -165,7 +165,7 @@ def create_sharegpt_format(processed_data):
                     "value": conversation["1"]["value"],
                 },
             ],
-            "images": image_paths,
+            "videos": video_paths,
             "emotion": video_data["emotion"],
             "video_id": video_id,
         }
