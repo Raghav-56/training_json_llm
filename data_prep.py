@@ -130,7 +130,6 @@ def create_vision_lm_format(processed_data):
             "images": image_paths,
             "emotion": video_data["emotion"],
             "video_id": video_id,
-            "frame_count": video_data["frame_count"],
         }
         vision_lm_data.append(entry)
     logger.info("Created %d vision-LM format entries", len(vision_lm_data))
@@ -169,7 +168,6 @@ def create_sharegpt_format(processed_data):
             "images": image_paths,
             "emotion": video_data["emotion"],
             "video_id": video_id,
-            "frame_count": video_data["frame_count"],
         }
         sharegpt_data.append(entry)
     logger.info("Created %d ShareGPT format entries", len(sharegpt_data))
